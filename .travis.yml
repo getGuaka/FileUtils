@@ -1,0 +1,10 @@
+sudo: false
+language: objective-c
+osx_image: xcode8
+
+script:
+- swift package generate-xcodeproj --enable-code-coverage
+- xcodebuild -project File.xcodeproj -scheme File test
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
