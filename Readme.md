@@ -28,15 +28,47 @@ This library only deals with textual files contents.
 Create a files
 
 ```swift
+SwiftFile(path: path, fileMode: .write)
+
+//OR
+SwiftFile.create(path: path)
 ```
 
 Delte a file
 
+```swift
+SwiftFile.delete(string: path)
+```
+
 Read file content
+
+```swift
+let content = SwiftFile.read(path: path)
+
+// or
+let content = String.read(contentsOfFile: path)
+```
 
 Write file content
 
+```swift
+SwiftFile.write(path: path, string: "ABCDEF")
+
+// or
+"AAAAA".write(toFile: path)
+```
+
 Get temporary file and directory
+
+```swift
+let tmp = SwiftPath.tempFolder
+
+// or
+let tmp = SwiftPath.tempFile
+
+// or
+let tmp = SwiftPath.tempFileName(name: "abc.txt")
+```
 
 
 ## Installation
