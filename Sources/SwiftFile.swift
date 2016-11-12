@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SwiftFile.swift
 //  File
 //
 //  Created by Omar Abdelhafith on 12/11/2016.
@@ -14,9 +14,9 @@
 
 
 
-class File {
+public class SwiftFile {
   
-  typealias FileType = UnsafeMutablePointer<FILE>?
+  public typealias FileType = UnsafeMutablePointer<FILE>?
   let fileHandle: FileType
   
   public init(path: String, fileMode: OpenMode) {
@@ -63,21 +63,21 @@ class File {
 }
 
 
-extension File {
+extension SwiftFile {
   
   @discardableResult
   public static func create(path: String) -> Bool {
-    return File(path: path, fileMode: .write).fileHandle != nil
+    return SwiftFile(path: path, fileMode: .write).fileHandle != nil
   }  
   
   public static func read(path: String) -> String? {
-    let fp = File(path: path, fileMode: .read)
+    let fp = SwiftFile(path: path, fileMode: .read)
     return fp.read()
   }
   
   @discardableResult
   public static func write(path: String, string: String) -> Bool {
-    return File(path: path, fileMode: .write).write(string: string)
+    return SwiftFile(path: path, fileMode: .write).write(string: string)
   }
   
   @discardableResult
@@ -91,8 +91,8 @@ extension File {
 }
 
 
-extension File {
-  enum OpenMode: String {
+extension SwiftFile {
+  public enum OpenMode: String {
     case read = "r"
     case readWrite = "r+"
     case write = "w"
@@ -101,10 +101,10 @@ extension File {
 
 extension String {
   public static func read(contentsOfFile file: String) -> String? {
-    return File.read(path: file)
+    return SwiftFile.read(path: file)
   }
   
   public func write(toFile file: String) -> Bool {
-    return File.write(path: file, string: self)
+    return SwiftFile.write(path: file, string: self)
   }
 }

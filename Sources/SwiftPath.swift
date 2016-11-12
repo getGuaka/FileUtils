@@ -13,7 +13,7 @@
   @_exported import Darwin.C
 #endif
 
-public enum Path {
+public enum SwiftPath {
   
   public static var tempFolder: String {
     guard let path = getenv("TMPDIR") else { return "" }
