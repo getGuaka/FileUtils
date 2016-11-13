@@ -12,12 +12,12 @@ import XCTest
 class PathTests: XCTestCase {
 
   func testItGetsTempPath() {
-    let tmp = Path.tempFolder
+    let tmp = Path.tempPath
     XCTAssertEqual(tmp.contains("/var/folders"), true)
   }
 
   func testItGetsTempFilePath() {
-    let tmp = Path.tempFileName(name: "abc.txt")
+    let tmp = Path.tempFileName(withName: "abc.txt")
     XCTAssertEqual(tmp.contains("/var/folders"), true)
     XCTAssertEqual(tmp.contains("abc.txt"), true)
   }
@@ -38,51 +38,88 @@ class PathTests: XCTestCase {
   }
 
   func testItGetsDirPathType() {
-    let tmp = Path.tempFolder
-    defer { Directory.delete(path: tmp + "abcdefg") }
-    Directory.create(path: tmp + "abcdefg")
+    let tmp = Path.tempPath
+    defer { Directory.delete(atPath: tmp + "abcdefg") }
+    Directory.create(atPath: tmp + "abcdefg")
 
-    let type = Path.pathType(path: tmp + "abcdefg")
+    let type = Path.type(ofPath: tmp + "abcdefg")
     XCTAssertEqual(type, PathType.directory)
   }
 
   func testItGetsFilePathType() {
-    let tmp = Path.tempFolder
-    defer { File.delete(path: tmp + "abcdefg") }
-    File.create(path: tmp + "abcdefg")
+    let tmp = Path.tempPath
+    defer { File.delete(atPath: tmp + "abcdefg") }
+    File.create(atPath: tmp + "abcdefg")
 
-    let type = Path.pathType(path: tmp + "abcdefg")
+    let type = Path.type(ofPath: tmp + "abcdefg")
     XCTAssertEqual(type, PathType.file)
   }
 
   func testItExpandsAPath() {
-    let tmp = Path.expand(path: "~/Documents")
+    let tmp = Path.expand("~/Documents")
 
     XCTAssertEqual(tmp.contains("/Users"), true)
   }
 
   func testItExpandsAPathHandlesErrors() {
-    let tmp = Path.expand(path: "/Documents")
+    let tmp = Path.expand("/Documents")
 
     XCTAssertEqual(tmp.contains("/Documents"), true)
   }
 
   func testItGetsTheDirName() {
-    let path = Path.dirName(path: "/Documents/a/b/c/d")
+    let path = Path.dirName(forPath: "/Documents/a/b/c/d")
 
     XCTAssertEqual(path, "/Documents/a/b/c")
   }
 
   func testItGetsTheBaseName() {
-    let path = Path.baseName(path: "/Documents/a/b/c/d")
+    let path = Path.baseName(forPath: "/Documents/a/b/c/d")
 
     XCTAssertEqual(path, "d")
   }
 
   func testItHandlesBadPaths() {
-    let path = Path.baseName(path: "abcd")
+    let path = Path.baseName(forPath: "abcd")
 
     XCTAssertEqual(path, "abcd")
+  }
+
+  func testItCanSetTheWorkingDirectory() {
+    let c = Path.currentDirectory
+    let new = Path.expand("~")
+
+    Path.currentDirectory = Path.expand("~")
+    XCTAssertEqual(Path.currentDirectory, new)
+    XCTAssertNotEqual(Path.currentDirectory, c)
+  }
+
+  func testItExpandsAGlob() {
+    let tmp = Path.expand(Path.tempPath)
+    Path.currentDirectory = tmp + "testing"
+
+    var root = Path.currentDirectory
+
+    Directory.create(atPath: root)
+    Directory.create(atPath: root + "/d1")
+    Directory.create(atPath: root + "/d2")
+    File.create(atPath: root + "/f1")
+    File.create(atPath: root + "/f2")
+
+    defer {
+      Directory.delete(atPath: root)
+    }
+
+
+    let files = Path.files(matchingGlobPattern: "f*")
+
+    XCTAssertEqual(files.contains("f1"), true)
+    XCTAssertEqual(files.contains("f2"), true)
+
+    let dirs = Path.files(matchingGlobPattern: "d*")
+
+    XCTAssertEqual(dirs.contains("d1"), true)
+    XCTAssertEqual(dirs.contains("d2"), true)
   }
 
 }

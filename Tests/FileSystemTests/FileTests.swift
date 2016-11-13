@@ -13,49 +13,49 @@ class FileTests: XCTestCase {
   
   func testsFileExistsCreateAndDelete() {
     let tmp = Path.tempFile
-    XCTAssertEqual(File.exists(path: tmp), false)
+    XCTAssertEqual(File.exists(tmp), false)
     _ = File(path: tmp, fileMode: .write)
-    XCTAssertEqual(File.exists(path: tmp), true)
+    XCTAssertEqual(File.exists(tmp), true)
 
-    File.delete(path: tmp)
-    XCTAssertEqual(File.exists(path: tmp), false)
+    File.delete(atPath: tmp)
+    XCTAssertEqual(File.exists(tmp), false)
   }
 
   func testsFileExistsCreateAndDelete1() {
     let tmp = Path.tempFile
-    XCTAssertEqual(File.exists(path: tmp), false)
-    _ = File.create(path: tmp)
-    XCTAssertEqual(File.exists(path: tmp), true)
+    XCTAssertEqual(File.exists(tmp), false)
+    _ = File.create(atPath: tmp)
+    XCTAssertEqual(File.exists(tmp), true)
 
-    File.delete(path: tmp)
-    XCTAssertEqual(File.exists(path: tmp), false)
+    File.delete(atPath: tmp)
+    XCTAssertEqual(File.exists(tmp), false)
   }
 
   func testItWritesAFile() {
-    let tmp = Path.tempFileName(name: "abc.txt")
+    let tmp = Path.tempFileName(withName: "abc.txt")
 
-    let r = try! File.write(path: tmp, string: "ABCDEF")
+    let r = try! File.write(string: "ABCDEF", toPath: tmp)
     XCTAssertEqual(r, true)
 
-    XCTAssertEqual(File.exists(path: tmp), true)
+    XCTAssertEqual(File.exists(tmp), true)
 
-    File.delete(path: tmp)
+    File.delete(atPath: tmp)
   }
 
   func testItReadsAFile() {
     let tmp = Path.tempFile
 
-    try! File.write(path: tmp, string: "TESTTEST")
-    let r = try! File.read(path: tmp)
+    try! File.write(string: "TESTTEST", toPath: tmp)
+    let r = try! File.read(atPath: tmp)
 
     XCTAssertEqual(r, "TESTTEST")
 
-    File.delete(path: tmp)
+    File.delete(atPath: tmp)
   }
 
   func testItReadANonExistingFile() {
     do {
-      _ = try File.read(path: "asdsadsda")
+      _ = try File.read(atPath: "asdsadsda")
       XCTFail()
     } catch FileError.fileNotFound {
     } catch {
@@ -64,17 +64,17 @@ class FileTests: XCTestCase {
   }
 
   func testItReadAAnEmptyFile() {
-    let tmp = Path.tempFileName(name: "empty-file.txt")
-    defer { File.delete(path: tmp) }
+    let tmp = Path.tempFileName(withName: "empty-file.txt")
+    defer { File.delete(atPath: tmp) }
 
     try! "".write(toFile: tmp)
-    let f = try! File.read(path: tmp)
+    let f = try! File.read(atPath: tmp)
     XCTAssertEqual(f, "")
   }
 
   func testItWritesANonExistingFile() {
     do {
-      _ = try File.write(path: "a/b/c/d/e/g/adasdw", string: "ddd")
+      _ = try File.write(string: "ddd", toPath: "a/b/c/d/e/g/adasdw")
       XCTFail()
     } catch FileError.fileNotFound {
     } catch {
@@ -83,29 +83,29 @@ class FileTests: XCTestCase {
   }
 
   func testItWritesAFileString() {
-    let tmp = Path.tempFileName(name: "abc.txt")
+    let tmp = Path.tempFileName(withName: "abc.txt")
 
     let r = try! "AAAAA".write(toFile: tmp)
     XCTAssertEqual(r, true)
 
-    XCTAssertEqual(File.exists(path: tmp), true)
+    XCTAssertEqual(File.exists(tmp), true)
 
-    File.delete(path: tmp)
+    File.delete(atPath: tmp)
   }
 
   func testItReadsAFileString() {
     let tmp = Path.tempFile
 
-    try! File.write(path: tmp, string: "TESTTEST1")
+    try! File.write(string: "TESTTEST1", toPath: tmp)
     let r = try! String.read(contentsOfFile: tmp)
 
     XCTAssertEqual(r, "TESTTEST1")
 
-    File.delete(path: tmp)
+    File.delete(atPath: tmp)
   }
 
   func testItDoesNotCrashIfDeleteANonExistaingFile() {
-    let b = File.delete(path: "asdsad.w")
+    let b = File.delete(atPath: "asdsad.w")
     XCTAssertFalse(b)
   }
 }

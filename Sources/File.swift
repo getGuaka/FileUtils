@@ -84,7 +84,7 @@ extension File {
   ///
   /// - returns: trueif successful, otherwise false
   @discardableResult
-  public static func create(path: String) -> Bool {
+  public static func create(atPath path: String) -> Bool {
     return File(path: path, fileMode: .write).fileHandle != nil
   }
 
@@ -93,7 +93,7 @@ extension File {
   /// - parameter path: the file to read
   ///
   /// - returns: the textual content of the file
-  public static func read(path: String) throws -> String {
+  public static func read(atPath path: String) throws -> String {
     return try File(path: path, fileMode: .read).read()
   }
 
@@ -104,7 +104,7 @@ extension File {
   ///
   /// - returns: trueif successful, otherwise false
   @discardableResult
-  public static func write(path: String, string: String) throws -> Bool {
+  public static func write(string: String, toPath path: String) throws -> Bool {
     return try File(path: path, fileMode: .write).write(string: string)
   }
 
@@ -114,7 +114,7 @@ extension File {
   ///
   /// - returns: trueif successful, otherwise false
   @discardableResult
-  public static func delete(path: String) -> Bool {
+  public static func delete(atPath path: String) -> Bool {
     return remove(path) == 0
   }
 
@@ -123,7 +123,7 @@ extension File {
   /// - parameter path: the file path
   ///
   /// - returns: trueif exists, otherwise false
-  public static func exists(path: String) -> Bool {
+  public static func exists(_ path: String) -> Bool {
     return access(path, F_OK) != -1
   }
 }

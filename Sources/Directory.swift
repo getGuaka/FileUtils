@@ -24,17 +24,18 @@ public enum Directory {
   ///
   /// - returns: true if succeeds, otherwise false
   @discardableResult
-  public static func create(path: String) -> Bool {
+  public static func create(atPath path: String) -> Bool {
     return mkdir(path, S_IRWXU | S_IRWXG | S_IRWXO) == 0
   }
 
   /// Deletes a directory at a path
+  /// Removes only empty folders
   ///
   /// - parameter path: the directory location
   ///
   /// - returns: true if succeeds, otherwise false
   @discardableResult
-  public static func delete(path: String) -> Bool {
+  public static func delete(atPath path: String) -> Bool {
     return rmdir(path) == 0
   }
 
@@ -46,8 +47,8 @@ public enum Directory {
   public static func contents(ofDirectory directory: String)
     -> (files: [String], directories: [String])? {
       guard
-        Path.exists(path: directory),
-        Path.pathType(path: directory) == .directory else { return nil }
+        Path.exists(directory),
+        Path.type(ofPath: directory) == .directory else { return nil }
 
       guard let dir = opendir(directory) else { return nil }
       defer { closedir(dir) }
@@ -59,7 +60,7 @@ public enum Directory {
         let name = dirNameToString(dirent: content.pointee)
         if name == "." || name == ".." { continue }
 
-        if Path.pathType(path: "\(directory)/\(name)") == .directory {
+        if Path.type(ofPath: "\(directory)/\(name)") == .directory {
           retDirs.append(name)
         } else {
           retFiles.append(name)

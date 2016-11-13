@@ -35,13 +35,13 @@ File.create(path: path)
 Delete a file
 
 ```swift
-File.delete(string: path)
+File.delete(atPath: path)
 ```
 
 Read file content
 
 ```swift
-let content = File.read(path: path)
+let content = File.read(atPath: path)
 
 // or
 let content = String.read(contentsOfFile: path)
@@ -50,7 +50,7 @@ let content = String.read(contentsOfFile: path)
 Write file content
 
 ```swift
-File.write(path: path, string: "ABCDEF")
+File.write(string: "ABCDEF", toPath: path, )
 
 // or
 "AAAAA".write(toFile: path)
@@ -59,7 +59,7 @@ File.write(path: path, string: "ABCDEF")
 Check if file exists
 
 ```swift
-File.exists(path: path)
+File.exists(path)
 ```
 
 ### Path
@@ -67,13 +67,13 @@ File.exists(path: path)
 Get temporary file and directory
 
 ```swift
-let tmp = Path.tempFolder
+let tmp = Path.tempPath
 
 // or
 let tmp = Path.tempFile
 
 // or
-let tmp = Path.tempFileName(name: "abc.txt")
+let tmp = Path.tempFileName(withName: "abc.txt")
 ```
 
 Get the current directory
@@ -91,13 +91,13 @@ let path = Path.home
 Checks if the path exists
 
 ```swift
-let exists = Path.exists(path: path)
+let exists = Path.exists(path)
 ```
 
 Checks the type of the file at a path
 
 ```swift
-let type = Path.pathType(path: path)
+let type = Path.type(ofPath: path)
 ```
 
 type is a member of the `PathType` enum. This enum defines `directory`, `executable`, `link` and `file`
@@ -105,17 +105,17 @@ type is a member of the `PathType` enum. This enum defines `directory`, `executa
 Expand a tilde in the path
 
 ```swift
-let expanded = Path.expand(path: "~/Documents")
+let expanded = Path.expand("~/Documents")
 // expanded is "/Users/YourUser/Documents"
 ```
 
 Gets the base name and the directory name of a path
 
 ```swift
-let base = Path.baseName(path: "/Documents/this/is/mypath")
+let base = Path.baseName(forPath: "/Documents/this/is/mypath")
 // base is "mypath"
 
-let dir = Path.dirName(path: "/Documents/this/is/mypath")
+let dir = Path.dirName(forPath: "/Documents/this/is/mypath")
 // dir is "/Documents/this/is"
 ```
 
@@ -124,13 +124,13 @@ let dir = Path.dirName(path: "/Documents/this/is/mypath")
 Create a directory
 
 ```swift
-Directory.create(path: path)
+Directory.create(atPath: path)
 ```
 
 Delete a directory
 
 ```swift
-Directory.delete(string: path)
+Directory.delete(atPath: path)
 ```
 
 Enumerate contents of a directory

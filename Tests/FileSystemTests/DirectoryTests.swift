@@ -12,37 +12,37 @@ import XCTest
 class DirectoryTests: XCTestCase {
 
   func testItCreatesADirectory() {
-    let tmp = Path.tempFolder
-    defer { Directory.delete(path: tmp + "abcdefg") }
-    XCTAssertFalse(Path.exists(path: tmp + "abcdefg"))
+    let tmp = Path.tempPath
+    defer { Directory.delete(atPath: tmp + "abcdefg") }
+    XCTAssertFalse(Path.exists(tmp + "abcdefg"))
     
-    let res = Directory.create(path: tmp + "abcdefg")
+    let res = Directory.create(atPath: tmp + "abcdefg")
     XCTAssertTrue(res)
-    XCTAssertTrue(Path.exists(path: tmp + "abcdefg"))
+    XCTAssertTrue(Path.exists(tmp + "abcdefg"))
   }
 
   func testItDeletesADirectory() {
-    let tmp = Path.tempFolder
-    XCTAssertFalse(Path.exists(path: tmp + "abcdefg"))
+    let tmp = Path.tempPath
+    XCTAssertFalse(Path.exists(tmp + "abcdefg"))
 
-    Directory.create(path: tmp + "abcdefg")
-    XCTAssertTrue(Path.exists(path: tmp + "abcdefg"))
+    Directory.create(atPath: tmp + "abcdefg")
+    XCTAssertTrue(Path.exists(tmp + "abcdefg"))
 
-    let deleted = Directory.delete(path: tmp + "abcdefg")
+    let deleted = Directory.delete(atPath: tmp + "abcdefg")
     XCTAssertTrue(deleted)
-    XCTAssertFalse(Path.exists(path: tmp + "abcdefg"))
+    XCTAssertFalse(Path.exists(tmp + "abcdefg"))
   }
 
   func testItGetsContentOfDirectory() {
-    let tmp = Path.tempFolder
-    Directory.create(path: tmp + "testing")
-    Directory.create(path: tmp + "testing/d1")
-    Directory.create(path: tmp + "testing/d2")
-    File.create(path: tmp + "testing/f1")
-    File.create(path: tmp + "testing/f2")
+    let tmp = Path.tempPath
+    Directory.create(atPath: tmp + "testing")
+    Directory.create(atPath: tmp + "testing/d1")
+    Directory.create(atPath: tmp + "testing/d2")
+    File.create(atPath: tmp + "testing/f1")
+    File.create(atPath: tmp + "testing/f2")
 
     defer {
-      Directory.delete(path: tmp + "testing")
+      Directory.delete(atPath: tmp + "testing")
     }
 
     let (files, directories) = Directory.contents(ofDirectory: tmp + "testing")!
