@@ -4,7 +4,7 @@ osx_image: xcode8
 
 script:
 - swift package generate-xcodeproj --enable-code-coverage
-- xcodebuild -project FileSystem.xcodeproj -scheme File test
+- xcodebuild -project FileSystem.xcodeproj -scheme FileSystem test
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
