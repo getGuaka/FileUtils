@@ -10,7 +10,7 @@ import Foundation
 
 extension String {
   
-  public static func read(contentsOfFile file: String) throws -> String? {
+  public static func read(contentsOfFile file: String) throws -> String {
     return try File.read(atPath: file)
   }
 
