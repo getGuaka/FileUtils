@@ -1,13 +1,13 @@
 //
 //  FileTests.swift
-//  FileSystem
+//  FileUtils
 //
 //  Created by Omar Abdelhafith on 13/11/2016.
 //
 //
 
 import XCTest
-@testable import FileSystem
+@testable import FileUtils
 
 class FileTests: XCTestCase {
   

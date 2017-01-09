@@ -1,9 +1,9 @@
-# FileSystem
+# FileUtils
 
-[![Build Status](https://travis-ci.org/oarrabi/FileSystem.svg?branch=master)](https://travis-ci.org/oarrabi/FileSystem)
-[![codecov](https://codecov.io/gh/oarrabi/FileSystem/branch/master/graph/badge.svg)](https://codecov.io/gh/oarrabi/FileSystem)
-[![Platform](https://img.shields.io/badge/platform-osx-lightgrey.svg)](https://travis-ci.org/oarrabi/FileSystem)
-[![Language: Swift](https://img.shields.io/badge/language-swift-orange.svg)](https://travis-ci.org/oarrabi/FileSystem)
+[![Build Status](https://travis-ci.org/oarrabi/FileUtils.svg?branch=master)](https://travis-ci.org/oarrabi/FileUtils)
+[![codecov](https://codecov.io/gh/oarrabi/FileUtils/branch/master/graph/badge.svg)](https://codecov.io/gh/oarrabi/FileUtils)
+[![Platform](https://img.shields.io/badge/platform-osx-lightgrey.svg)](https://travis-ci.org/oarrabi/FileUtils)
+[![Language: Swift](https://img.shields.io/badge/language-swift-orange.svg)](https://travis-ci.org/oarrabi/FileUtils)
 [![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Easy way to work with files, directories and paths in swift on macOS and linux.
@@ -17,6 +17,8 @@ You are developing a cli and you want to:
 - Get different paths (Home/Current/Temp).
 - Get the base name and directory name of a path
 
+
+You can use `FileUtils` with [Guaka](https://github.com/oarrabi/Process) to create aweseome command line applications.
 
 Note: At the moment, this library only deals with textual files contents. (Check todo section of this file).
 
@@ -152,16 +154,16 @@ Add File as dependency in your `Package.swift`
 
   let package = Package(name: "YourPackage",
     dependencies: [
-      .Package(url: "https://github.com/oarrabi/FileSystem.git", majorVersion: 0),
+      .Package(url: "https://github.com/oarrabi/FileUtils.git", majorVersion: 0),
     ]
   )
 ```
 
 ### Carthage
-    github 'oarrabi/FileSystem'
+    github 'oarrabi/FileUtils'
 
 ## Tests
-Tests can be found [here](https://github.com/oarrabi/FileSystem/tree/master/Tests).
+Tests can be found [here](https://github.com/oarrabi/FileUtils/tree/master/Tests).
 
 Run them with
 ```
