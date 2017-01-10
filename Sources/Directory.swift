@@ -12,8 +12,6 @@
   @_exported import Darwin.C
 #endif
 
-import Foundation
-
 
 /// Directory related functions
 public enum Directory {
