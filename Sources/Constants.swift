@@ -39,14 +39,36 @@ public enum PathType {
   case file
 
   init(stat: stat) {
-    if S_IFDIR == stat.st_mode || 16877 == stat.st_mode {
+    self = .directory
+
+    if stat.isDirectory {
       self = .directory
-    } else if S_IEXEC == stat.st_mode {
+    } else if stat.isExecutable {
       self = .directory
-    } else if S_IFLNK == stat.st_mode {
+    } else if stat.isLink {
       self = .link
     } else {
       self = .file
     }
+
+  }
+}
+
+extension stat {
+
+  fileprivate var isExecutable: Bool {
+    #if os(Linux)
+      return UInt32(S_IEXEC) == st_mode
+      #else
+      return S_IEXEC == st_mode
+    #endif
+  }
+
+  fileprivate var isLink: Bool {
+    return S_IFLNK == st_mode
+  }
+
+  fileprivate var isDirectory: Bool {
+    return S_IFDIR == st_mode || 16877 == st_mode || 16893 == st_mode
   }
 }

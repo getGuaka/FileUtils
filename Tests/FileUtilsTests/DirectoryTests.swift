@@ -15,7 +15,7 @@ class DirectoryTests: XCTestCase {
     let tmp = Path.tempPath
     defer { Directory.delete(atPath: tmp + "abcdefg") }
     XCTAssertFalse(Path.exists(tmp + "abcdefg"))
-    
+
     let res = Directory.create(atPath: tmp + "abcdefg")
     XCTAssertTrue(res)
     XCTAssertTrue(Path.exists(tmp + "abcdefg"))
@@ -57,4 +57,12 @@ class DirectoryTests: XCTestCase {
     XCTAssertNil(res)
   }
 
+  static var allTests: [(String, (DirectoryTests) -> () throws -> Void)] {
+    return [
+      ("testItCreatesADirectory", testItCreatesADirectory),
+      ("testItDeletesADirectory", testItDeletesADirectory),
+      ("testItGetsContentOfDirectory", testItGetsContentOfDirectory),
+      ("testItHandlesErrorWhenGettingContentOfDir", testItHandlesErrorWhenGettingContentOfDir),
+    ]
+  }
 }

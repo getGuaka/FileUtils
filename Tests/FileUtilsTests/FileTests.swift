@@ -10,10 +10,11 @@ import XCTest
 @testable import FileUtils
 
 class FileTests: XCTestCase {
-  
+
   func testsFileExistsCreateAndDelete() {
     let tmp = Path.tempFile
     XCTAssertEqual(File.exists(tmp), false)
+
     _ = File(path: tmp, fileMode: .write)
     XCTAssertEqual(File.exists(tmp), true)
 
@@ -107,5 +108,22 @@ class FileTests: XCTestCase {
   func testItDoesNotCrashIfDeleteANonExistaingFile() {
     let b = File.delete(atPath: "asdsad.w")
     XCTAssertFalse(b)
+  }
+
+  static var allTests: [(String, (FileTests) -> () throws -> Void)] {
+    return [
+      ("testsFileExistsCreateAndDelete", testsFileExistsCreateAndDelete),
+      ("testsFileExistsCreateAndDelete1", testsFileExistsCreateAndDelete1),
+      ("testItWritesAFile", testItWritesAFile),
+      ("testItReadsAFile", testItReadsAFile),
+      ("testItReadAAnEmptyFile)", testItReadAAnEmptyFile),
+      ("testItWritesAFileString", testItWritesAFileString),
+      ("testItReadsAFileString", testItReadsAFileString),
+      ("testItDoesNotCrashIfDeleteANonExistaingFile", testItDoesNotCrashIfDeleteANonExistaingFile),
+
+      // Fails on ubuntu, cannot test throw!
+      //      ("testItReadANonExistingFile", testItReadANonExistingFile),
+      //      ("testItWritesANonExistingFile", testItWritesANonExistingFile),
+    ]
   }
 }

@@ -19,9 +19,7 @@ public enum Path {
 
   /// Gets the path of the system temp directory
   public static var tempPath: String {
-    guard let path = getenv("TMPDIR") else { return "" }
-
-    return String(cString: path)
+    return getTempDir()
   }
 
   /// Gets the path of a temp file
@@ -35,10 +33,11 @@ public enum Path {
   ///
   /// - returns: the path of a temp file
   public static func tempFileName(withName name: String) -> String {
-    guard let path = getenv("TMPDIR") else { return "" }
+    let tempDir = getTempDir()
 
-    return String(cString: path) + name
+    return tempDir + name
   }
+
 
   /// Gets the current directory
   public static var currentDirectory: String {
@@ -87,8 +86,7 @@ public enum Path {
   ///
   /// - returns: the base name of the path
   public static func baseName(forPath path: String) -> String {
-    var mutPath: [Int8] = Array(path.utf8CString)
-    guard let ret = basename(&mutPath) else { return path }
+    guard let ret = get_basename(path) else { return path }
 
     return String(cString: ret)
   }
@@ -129,7 +127,7 @@ public enum Path {
     defer { globfree(&gt) }
 
     if (glob(pattern, 0, nil, &gt) == 0) {
-      for i in (0..<gt.gl_matchc) {
+      for i in (0..<gt.gl_pathc) {
         let x = gt.gl_pathv[Int(i)]
         let c = UnsafePointer<CChar>(x)!
         let s = String.init(cString: c)
