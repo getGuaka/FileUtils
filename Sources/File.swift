@@ -49,7 +49,7 @@ public class File {
     
     guard fileLen > 0 else { return "" }
     
-    let mut = UnsafeMutablePointer<UInt8>.allocate(capacity: fileLen)
+    let mut = UnsafeMutablePointer<UInt8>.allocate(capacity: fileLen + 1)
     fread(mut, 1, fileLen, fileHandle)
     
     let buff = UnsafeMutableBufferPointer(start: mut, count: fileLen + 1)
