@@ -13,7 +13,7 @@ Easy way to work with files, directories and paths in swift on macOS and linux.
 You are developing a cli and you want to:
 - Read/Write files.
 - Create/Delete files.
-- Create/Delte/List directories.
+- Create/Delete/List directories.
 - Get different paths (Home/Current/Temp).
 - Get the base name and directory name of a path
 
@@ -25,7 +25,7 @@ Note: At the moment, this library only deals with textual files contents. (Check
 ## Usage
 
 ### File
-Create a files
+Create a file
 
 ```swift
 File(path: path, fileMode: .write)
@@ -90,13 +90,13 @@ Get the home directory
 let path = Path.home
 ```
 
-Checks if the path exists
+Check if the path exists
 
 ```swift
 let exists = Path.exists(path)
 ```
 
-Checks the type of the file at a path
+Check the type of the file at a path
 
 ```swift
 let type = Path.type(ofPath: path)
@@ -111,7 +111,7 @@ let expanded = Path.expand("~/Documents")
 // expanded is "/Users/YourUser/Documents"
 ```
 
-Gets the base name and the directory name of a path
+Get the base name and the directory name of a path
 
 ```swift
 let base = Path.baseName(forPath: "/Documents/this/is/mypath")
@@ -144,10 +144,10 @@ let (files, directories) = Directory.contents(ofDirectory: path)!
 this returns a tuple that contains all the files and directories found at the path
 
 ## Installation
-You can install File using Swift package manager (SPM) and carthage
+You can install File using Swift package manager (SPM) and Carthage
 
 ### Swift Package Manager
-Add File as dependency in your `Package.swift`
+Add FileSystem as a dependency in your `Package.swift`
 
 ```
   import PackageDescription
