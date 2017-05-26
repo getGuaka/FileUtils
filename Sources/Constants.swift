@@ -69,6 +69,7 @@ extension stat {
   }
 
   fileprivate var isDirectory: Bool {
-    return S_IFDIR == st_mode || 16877 == st_mode || 16893 == st_mode
+    let s_flag = st_mode & S_IFDIR
+    return s_flag == S_IFDIR
   }
 }
