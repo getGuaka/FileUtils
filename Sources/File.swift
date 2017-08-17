@@ -34,7 +34,9 @@ public class File {
   }
   
   deinit {
-    fclose(fileHandle)
+    if let fileHandle = self.fileHandle {
+	fclose(fileHandle)
+    }
   }
 
   /// Reads the file content and returns a string
