@@ -18,7 +18,7 @@ You are developing a cli and you want to:
 - Get the base name and directory name of a path
 
 
-You can use `FileUtils` with [Guaka](https://github.com/getGuaka/Process) to create aweseome command line applications.
+You can use `FileUtils` with [Guaka](https://github.com/nsomar/Guaka) to create aweseome command line applications.
 
 Note: At the moment, this library only deals with textual files contents. (Check todo section of this file).
 
