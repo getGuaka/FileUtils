@@ -191,7 +191,7 @@ tags
 
 iOSInjectionProject/
 
-FileSystem.xcodeproj
+*.xcodeproj
 Packages/
 
 ### Objective-C Patch ###

@@ -29,7 +29,7 @@ class PathTests: XCTestCase {
 
   func testItGetsCurrentDirectory() {
     let tmp = Path.currentDirectory
-    XCTAssertEqual(tmp.characters.count > 0, true)
+    XCTAssertEqual(tmp.count > 0, true)
   }
 
   func testItGetsHomeDirectory() {
