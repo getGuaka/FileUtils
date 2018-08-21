@@ -20,13 +20,13 @@ func randomString(length: Int) -> String {
   #endif
 
   let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-  let len = letters.characters.count
+  let len = letters.count
 
   var randomString: [Character] = []
 
   for _ in 0 ..< length {
     let rand = getRandom(len: len)
-    let nextChar = letters.characters[letters.index(letters.startIndex, offsetBy: rand)]
+    let nextChar = letters[letters.index(letters.startIndex, offsetBy: rand)]
 
     randomString.append(nextChar)
   }
